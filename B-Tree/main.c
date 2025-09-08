@@ -7,30 +7,42 @@ int main()
 {
     //      INICIALIZAÇÃO
     Btree test;
-    BtreeCreate(&test, 3);
+    BtreeCreate(&test, ORDEM);
 
+    printf("ARVORE B:\n");
+    printf("- Ordem (t): %d\n", ORDEM);
+    printf("- Maximo de chaves por no: %d\n", 2*ORDEM-1);
+    printf("- Minimo de chaves por no (exceto raiz): %d\n\n", ORDEM-1);
 
     //      INSERÇÃO
-    BtreeInsert(&test, 3);
+    int d = 1;
+    for (int i=0; i<2; i++)
+    {
+        if (i>0)
+        {
+            d*=10;
+        }
 
-    BtreeInsert(&test, 10);
+        for (int j=0; j<9; j++)
+        {
+            BtreeInsert(&test, d*(j+1));
+        }
+    }
+    BtreeInsert(&test, 11);
 
-    BtreeInsert(&test, 2);
+    printf("Arvore antes:\n");
+    BtreePrint(&test);
 
-    BtreeInsert(&test, 4);
 
-    BtreeInsert(&test, 6);
+    //      DELETE
+    BtreeDelete(&test, 50);
 
-    BtreeInsert(&test, 30);
-
-    BtreeInsert(&test, 40);
-
-    BtreeInsert(&test, 50);
-
-    BtreeInsert(&test, 60);
 
     //      TESTES
-    BtreeNode *a = BtreeSearch(test.root, 60);
+    printf("Arvore depois:\n");
+    BtreePrint(&test);
+
+    BtreeNode *a = BtreeSearch(test.root, 3);
 
     if (a != NULL)
     {
